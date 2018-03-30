@@ -51,9 +51,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
     <script>
-        var temperature = document.getElementById('temperature-output')
-        var humidity = document.getElementById('humidity-output')
-        var initialised = false
+        var temperature = document.getElementById('temperature-output');
+        var humidity = document.getElementById('humidity-output');
+        var initialised = false;
 
         var socket = io();
         socket.on('data', function (d) {
@@ -64,7 +64,7 @@
 
           temperature.innerText = d.temperature + '°C';
           humidity.innerText = d.humidity + '%';
-        })
+        });
     </script>
 </body>
 </html>
