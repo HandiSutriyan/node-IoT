@@ -1,0 +1,14 @@
+{
+  "name": "dht11-webapp",
+  "version": "1.0.0",
+  "description": "DHT11 + node.js web application",
+  "main": "main.js",
+  "repository": ".",
+  "author": "Gustavs Racenajs <racenajs.gustavs@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "serialport": "^6.1.1",
+    "socket.io": "^2.1.0"
+  }
+}

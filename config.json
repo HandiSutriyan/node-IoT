@@ -1,0 +1,4 @@
+{
+  "serial_port": "/dev/cu.usbmodem14321",
+  "http_port": 8000
+}

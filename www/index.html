@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DHT11</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    
+    <style>
+        html, body, .container {
+            height: 100%;
+        }
+        body {
+            font-family: 'Lato', sans-serif;
+            background: #59ABE3;
+            color: #fff;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .temperature {
+            font-size: 8rem;
+        }
+        .humidity {
+            font-size: 1.5rem;
+        }
+        .humidity .humidity-text {
+            color: #5f5f5f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="temperature">
+            <span id="temperature-output">Loading...</span>
+        </div>
+        <div id="humidity" class="humidity" style="display: none;">
+            <span class="humidity-text">
+                <i class="fa fa-tint"></i>
+                Humidity:
+            </span>
+            <span id="humidity-output"></span>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <script>
+        var temperature = document.getElementById('temperature-output')
+        var humidity = document.getElementById('humidity-output')
+        var initialised = false
+
+        var socket = io();
+        socket.on('data', function (d) {
+          if (!initialised) {
+            initialised = true;
+            document.getElementById('humidity').style.display = 'block';
+          }
+
+          temperature.innerText = d.temperature + '°C';
+          humidity.innerText = d.humidity + '%';
+        })
+    </script>
+</body>
+</html>
