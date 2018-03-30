@@ -12,7 +12,7 @@ This project was tested and developed on Arduino Uno board. However, it should w
 - Connect DHT11 to your Arduino board digital pin 2 (if you want to connect it to a different pin, edit the `DHT_PIN` constant in `src/main.cpp`)
 - Compile and upload the code to your Arduino board
 - Install node packages - `yarn` or `npm i`
-- Edit `settings.json` to match your serial connection location and the HTTP port
+- Edit `config.json` to match your serial connection location and the HTTP port
 - Launch the app by running `node main.js` in the terminal
 
 ## Used libraries
