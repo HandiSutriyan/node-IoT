@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "DHT11 + node.js web application",
   "main": "main.js",
-  "repository": ".",
+  "repository": "https://github.com/GustavsR/dht11-webapp",
   "author": "Gustavs Racenajs <racenajs.gustavs@gmail.com>",
   "license": "MIT",
   "dependencies": {
