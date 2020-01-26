@@ -6,15 +6,19 @@ const io = require('socket.io')(http)
 const config = require('./config')
 
 let parser = new ReadLine() // Initialise SerialPort parser
-let port = new SerialPort(config.serial_port, {
+let port = new SerialPort('\\\\.\\COM6', {
   baudRate: 9600
 })
 port.pipe(parser) // Assign ReadLine parser to SerialPort instance
 
 // Set initial data
+var today = new Date();
 let serialData = {
   temperature: 0,
-  humidity: 0
+  humidity: 0,
+  pressure: 0,
+  date: today.getDate()+"-"+today.getMonth()+1+"-"+today.getFullYear(),
+  time: (today.getHours())+":"+(today.getMinutes())
 }
 
 parser.on('data', (data) => {

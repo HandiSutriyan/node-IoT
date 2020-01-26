@@ -30,7 +30,13 @@
         .humidity {
             font-size: 1.5rem;
         }
+        .pressure {
+            font-size: 1.5rem;
+        }
         .humidity .humidity-text {
+            color: #5f5f5f;
+        }
+        .pressure .pressure-text {
             color: #5f5f5f;
         }
     </style>
@@ -47,12 +53,20 @@
             </span>
             <span id="humidity-output"></span>
         </div>
+        <div id="pressure" class="pressure" style="display: none;">
+            <span class="pressure-text">
+                <i class="fa fa-dashboard"></i>
+                Pressure:
+            </span>
+            <span id="pressure-output"></span>
+        </div>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script>
         var temperature = document.getElementById('temperature-output');
         var humidity = document.getElementById('humidity-output');
+        var pressure = document.getElementById('pressure-output');
         var initialised = false;
 
         var socket = io();
@@ -60,11 +74,59 @@
           if (!initialised) {
             initialised = true;
             document.getElementById('humidity').style.display = 'block';
+            document.getElementById('pressure').style.display = 'block';
           }
 
           temperature.innerText = d.temperature + '°C';
           humidity.innerText = d.humidity + '%';
+          pressure.innerText= d.pressure + 'Pa';
         });
+
+         var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                labels: [],
+                datasets: [{
+                    label: "Temperature",
+                    borderColor: "#FFF",
+                    data: [],
+                    fill: false,
+                    pointStyle: 'circle',
+                    backgroundColor: '#FFF',
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    lineTension: 0,
+                }]
+                },
+
+                // Configuration options go here
+                options: {}
+                
+            });
+
+            socket.on('data', function(data) { //As a temp data is received 
+                console.log(data.temperature);
+                document.getElementById('date').innerHTML = data.date; //update the date
+                if(chart.data.labels.length != 15) { //If we have less than 15 data points in the graph
+                    chart.data.labels.push(data.time);  //Add time in x-asix
+                    chart.data.datasets.forEach((dataset) => {
+                        dataset.data.push(data.temperature); //Add temp in y-axis
+                    });
+                }
+                else { //If there are already 15 data points in the graph.
+                    chart.data.labels.shift(); //Remove first time data
+                    chart.data.labels.push(data.time); //Insert latest time data
+                    chart.data.datasets.forEach((dataset) => {
+                        dataset.data.shift(); //Remove first temp data
+                        dataset.data.push(data.temperature); //Insert latest temp data
+                    });
+                }
+                chart.update(); //Update the graph.
+            });
     </script>
 </body>
 </html>
