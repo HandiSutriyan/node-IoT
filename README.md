@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # DHT11-webapp
 
 This app is an Arduino and Node.js combination that uses DHT11 temperature sensor in order to display temperature and humidity in real-time.
@@ -19,7 +19,7 @@ This project was tested and developed on Arduino Uno board. However, it should w
 ## Used libraries
 - https://github.com/bblanchon/ArduinoJson
 - https://github.com/markruys/arduino-DHT
-=======
+
 # node-IoT
 Proyek IoT sensor suhu dengan Node.js untuk ITARSI STMKG
->>>>>>> 4baa4674f52db45f22e5e6a7077a478bf2252c6e
+
